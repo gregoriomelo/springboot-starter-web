@@ -1,22 +1,29 @@
 package servico.demo;
 
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@EnableAutoConfiguration
-@SpringBootApplication
 public class SampleController {
 
-	@RequestMapping("/")
+	@RequestMapping("/hello")
 	@ResponseBody
-	String home() {
-		return "Hello World!";
+	public Message home() {
+		return new Message("Hello, world!");
 	}
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(SampleController.class, args);
-	}
+	class Message {
+	    private String message;
+
+        public Message(String message) {
+            this.message = message;
+        }
+
+        @JsonProperty
+        public String getMessage() {
+            return message;
+        }
+    }
 }
