@@ -23,7 +23,7 @@ public class SampleControllerTest {
 
     @Test
     public void testSayHelloWorld() throws Exception {
-        this.mockMvc.perform(get("/hello").accept(MediaType.APPLICATION_JSON_UTF8))
+        this.mockMvc.perform(get("/messages/hello").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json("{'message': 'Hello, world!'}"));
@@ -31,7 +31,7 @@ public class SampleControllerTest {
 
     @Test
     public void showsCollectionOfMessages() throws Exception {
-        this.mockMvc.perform(get("/").accept(MediaType.APPLICATION_JSON_UTF8))
+        this.mockMvc.perform(get("/messages/").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json("{'messages': [{'message':'oi'},{'message':'meu'},{'message':'amigo'}]}"));
