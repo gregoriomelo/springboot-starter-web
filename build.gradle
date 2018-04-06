@@ -1,9 +1,11 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.0.RELEASE'
+		springBootVersion = '2.0.2.BUILD-SNAPSHOT'
 	}
 	repositories {
 		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -26,6 +28,8 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
 }
 
 
@@ -40,7 +44,18 @@ dependencies {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifact(file("$libsDir/"))
+			artifact(file("$libsDir/springboot-starter-web-demo-0.0.1-SNAPSHOT.jar"))
+		}
+	}
+
+	repositories {
+		maven {
+			name 'greg'
+			url nexusUrl
+			credentials {
+				username = nexusUsername
+				password = nexusPassword
+			}
 		}
 	}
 }
