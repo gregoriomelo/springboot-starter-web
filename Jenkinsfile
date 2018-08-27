@@ -4,7 +4,7 @@ pipeline {
     stage('Prepare') {
       steps {
         sh './gradlew clean'
-        sh './gradlew compile'
+        sh './gradlew compileJava'
       }
     }
     stage('Test') {
@@ -12,12 +12,11 @@ pipeline {
         stage('Test') {
           steps {
             sh './gradlew test'
-            sh './gradle integrationTest'
           }
         }
         stage('Static Analsysis') {
           steps {
-            sh './gradlew staticAnalysis'
+            sh './gradlew sonarqube'
           }
         }
       }
@@ -30,12 +29,7 @@ pipeline {
     stage('Build') {
       steps {
         sh './gradlew bootJar'
-        sh '''
-
-
-
-
-docker build -t gregoriomelo/springboot-starter-web-demo/:`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD`'''
+        sh 'docker build -t gregoriomelo/springboot-starter-web-demo/:`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD`'
       }
     }
   }
